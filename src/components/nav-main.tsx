@@ -30,7 +30,7 @@ export function NavMain({
               <SidebarMenuButton
                 tooltip={item.title}
                 isActive={item.url.includes(pathname)}
-                className="h-12 px-4 rounded-xl" // 👈 add height and padding here
+                className="h-12 px-4 rounded-xl" 
               >
                 <Link
                   href={item.url}

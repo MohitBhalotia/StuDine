@@ -79,7 +79,8 @@ export default function SidebarWrapper({
                       ) : (
                         <BreadcrumbLink asChild>
                           <Link href={breadcrumb.href}>
-                            {breadcrumb.segment}
+                            {breadcrumb.segment[0].toUpperCase() +
+                              breadcrumb.segment.slice(1)}
                           </Link>
                         </BreadcrumbLink>
                       )}

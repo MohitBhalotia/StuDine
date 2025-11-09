@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
-import { registerSchema } from "@/models/registerSchema";
+import { registerSchema } from "@/models/auth/registerSchema";
 import { authClient } from "@/lib/auth-client";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -54,6 +54,8 @@ export function RegisterForm() {
     } else {
       toast.success("Account created successfully");
     }
+    form.reset();
+    router.push("/login");
     setLoading(false);
   };
 
@@ -66,7 +68,11 @@ export function RegisterForm() {
         </p>
       </div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 ">
-        {error && <p className="text-destructive text-lg text-center mt-4 font-semibold">{error}</p>}
+        {error && (
+          <p className="text-destructive text-lg text-center mt-4 font-semibold">
+            {error}
+          </p>
+        )}
         <FormField
           control={form.control}
           name="name"
@@ -234,7 +240,6 @@ export function RegisterForm() {
           )}
         </Button>
       </form>
-      
     </Form>
   );
 }

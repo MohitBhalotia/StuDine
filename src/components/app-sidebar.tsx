@@ -62,8 +62,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 src="/logo.png"
                 alt="StuDine"
                 className="w-full h-full object-contain"
-                width={100}
-                height={100}
+                width={200}
+                height={200}
+                quality={100}
+                priority
               />
             </SidebarMenuButton>
           </SidebarMenuItem>

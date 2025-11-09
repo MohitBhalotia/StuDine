@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { loginSchema } from "@/models/loginSchema";
+import { loginSchema } from "@/models/auth/loginSchema";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   InputGroup,
@@ -39,6 +39,7 @@ export function LoginForm() {
     },
   });
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    console.log(data);
     setError(null);
     setLoading(true);
     const { error } = await authClient.signIn.email({
@@ -65,14 +66,18 @@ export function LoginForm() {
         </p>
       </div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 ">
-        {error && <p className="text-destructive text-lg text-center mt-4 font-semibold">{error}</p>}
+        {error && (
+          <p className="text-destructive text-lg text-center mt-4 font-semibold">
+            {error}
+          </p>
+        )}
 
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel >Email</FormLabel>
               <FormControl>
                 <Input
                   {...field}
