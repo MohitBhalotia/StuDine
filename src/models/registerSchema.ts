@@ -1,9 +1,14 @@
 import { z } from "zod";
 
+const iiitnEmailRegex = /^[a-z0-9._%+-]+@iiitn\.ac\.in$/;
+
 export const registerSchema = z
   .object({
     name: z.string().min(1, { message: "Full name is required" }),
-    email: z.string().email({ message: "Invalid email address" }),
+    email: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .regex(iiitnEmailRegex, { message: "Email must be a valid IIITN email address" }),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters" }),

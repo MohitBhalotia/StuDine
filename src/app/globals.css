@@ -71,7 +71,7 @@
   --secondary-foreground: #0f1419;
   --muted: #181818;
   --muted-foreground: #72767a;
-  --accent: #061622;
+  --accent: #535252;
   --accent-foreground: #1c9cf0;
   --destructive: #f4212e;
   --destructive-foreground: #ffffff;
@@ -172,3 +172,4 @@
     @apply bg-background text-foreground;
   }
 }
+

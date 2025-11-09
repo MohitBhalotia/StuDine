@@ -1,5 +1,4 @@
 "use client";
-
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -51,7 +50,6 @@ export default function SidebarWrapper({
     return breadcrumbs;
   };
 
-  
   const breadcrumbs = generateBreadcrumbs();
 
   return (
@@ -75,7 +73,8 @@ export default function SidebarWrapper({
                     <BreadcrumbItem className="hidden md:block">
                       {breadcrumb.isCurrent ? (
                         <BreadcrumbPage>
-                          {breadcrumb.segment}
+                          {breadcrumb.segment[0].toUpperCase() +
+                            breadcrumb.segment.slice(1)}
                         </BreadcrumbPage>
                       ) : (
                         <BreadcrumbLink asChild>
