@@ -64,7 +64,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 className="w-full h-full object-contain"
                 width={200}
                 height={200}
-                quality={100}
                 priority
               />
             </SidebarMenuButton>

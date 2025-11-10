@@ -24,7 +24,11 @@ import {
   FormDescription,
   Form,
 } from "@/components/ui/form";
-import { Dropzone, DropzoneContent, DropzoneEmptyState } from "./dropzone";
+import {
+  Dropzone,
+  DropzoneContent,
+  DropzoneEmptyState,
+} from "../../../components/dropzone";
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";

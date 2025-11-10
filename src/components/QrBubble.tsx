@@ -19,11 +19,8 @@ const QrDialog = ({
 }: {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const router = useRouter();
-
   const handleScan = (result: IDetectedBarcode[]) => {
     setOpen(false);
-    router.push("/menu");
   };
 
   return (

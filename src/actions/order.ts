@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/config/db";
-
+import { v4 as uuidv4 } from "uuid";
 export const getOrders = async () => {
   try {
     const [rows] = await db.query("SELECT * FROM orders");
@@ -20,9 +20,9 @@ export const addOrder = async (order: Order) => {
   try {
     console.log(order);
     await db.query(
-      "INSERT INTO orders (id, menuId, userId, quantity, totalAmount, status,paymentStatus,paymentMethod,specialRequest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO orders (id, menuId, userId, quantity, totalAmount, status,paymentStatus,paymentMethod,specialRequest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        order.id,
+        uuidv4(),
         order.menuId,
         order.userId,
         order.quantity,
@@ -33,17 +33,17 @@ export const addOrder = async (order: Order) => {
         order.specialRequest,
       ]
     );
-    return { success: true, message: "Menu added successfully" };
+    return { success: true, message: "Order placed successfully" };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to add menu");
+    throw new Error("Failed to place order");
   }
 };
 
 export const updateOrder = async (order: Order) => {
   try {
     await db.query(
-      "UPDATE orders SET  quantity = ?, totalAmount = ?, status = ?, paymentStatus = ?, paymentMethod = ?, specialRequest = ? WHERE id = ?",
+      "UPDATE orders SET quantity = ?, totalAmount = ?, status = ?, paymentStatus = ?, paymentMethod = ?, specialRequest = ? WHERE id = ?",
       [
         order.quantity,
         order.totalAmount,
@@ -57,16 +57,16 @@ export const updateOrder = async (order: Order) => {
     return { success: true, message: "Order updated successfully" };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to update menu");
+    throw new Error("Failed to update order");
   }
 };
 
-export const deleteMenu = async (id: string) => {
+export const deleteOrder = async (id: string) => {
   try {
     await db.query("DELETE FROM orders WHERE id = ?", [id]);
-    return { success: true, message: "Menu deleted successfully" };
+    return { success: true, message: "Order deleted successfully" };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to delete menu");
+    throw new Error("Failed to delete order");
   }
 };

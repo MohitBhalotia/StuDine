@@ -19,10 +19,10 @@ export declare global {
   }
 
   interface Order {
-    id: string;
+    id?: string;
     userId: string;
     menuId: string;
-    orderTime: Date;
+    orderTime?: Date;
     quantity: number;
     specialRequest?: string;
     status: "Pending" | "Confirmed" | "Delivered" | "Cancelled";

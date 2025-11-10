@@ -64,3 +64,13 @@ export const deleteMenu = async (id: string) => {
     throw new Error("Failed to delete menu");
   }
 };
+
+export const getMenuById = async (id: string) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM menus WHERE id = ?", [id]);
+    return { success: true, message: "Menu fetched successfully", data: rows as Menu[]};
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get menu");
+  }
+};
