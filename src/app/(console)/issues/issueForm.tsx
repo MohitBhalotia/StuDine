@@ -86,20 +86,18 @@ export function IssueForm() {
       };
       await addIssueToStore(issueData);
 
-      router.push("/notices");
-      toast.success("Notice posted successfully");
+      router.push("/issues");
       form.reset();
       setFiles([]);
     } catch (err) {
       console.error("Error submitting form:", err);
-      toast.error("Failed to post notice. Please try again.");
+      toast.error("Failed to post issue. Please try again.");
     } finally {
       setIsLoading(false);
     }
   });
 
   const handleDrop = (files: File[]) => {
-    console.log(files);
     setFiles(files);
     if (files.length > 0) {
       const reader = new FileReader();

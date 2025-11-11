@@ -14,7 +14,6 @@ export const getMenus = async () => {
 
 export const addMenu = async (menu: Menu) => {
   try {
-    console.log(menu);
     await db.query(
       "INSERT INTO menus (id, description, type, mealTime, day, price, image) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [
@@ -74,3 +73,4 @@ export const getMenuById = async (id: string) => {
     throw new Error("Failed to get menu");
   }
 };
+

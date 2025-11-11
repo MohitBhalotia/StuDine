@@ -117,7 +117,6 @@ export function MenuForm({ id }: { id?: string }) {
   });
 
   const handleDrop = (files: File[]) => {
-    console.log(files);
     setFiles(files);
     if (files.length > 0) {
       const reader = new FileReader();

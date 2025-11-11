@@ -100,7 +100,6 @@ export function OrderForm({ id }: { id?: string }) {
   const handleSubmit = form.handleSubmit(async (data) => {
     setPending(true);
     try {
-      console.log("Order Data:", data);
       const result = await addOrder(data);
       if (result.success) {
         toast.success(result.message);

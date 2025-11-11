@@ -39,7 +39,6 @@ const StatusCell = ({ order }: { order: Order }) => {
 
   const handleStatusChange = async (newStatus: string) => {
     const updatedOrder = { ...order, status: newStatus as Order["status"] };
-    console.log(updatedOrder);
     const result = await updateOrderInStore(updatedOrder, order.id as string);
     if (result.success) toast.success("Order status updated");
     else toast.error(result.message);

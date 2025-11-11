@@ -1,93 +1,35 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Loader2, PlusIcon, Bell } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty";
-import { DataTable } from "@/app/(console)/orders/OrderTable";
-import { columns } from "./columns";
-import { useNoticeStore } from "@/store/noticeStore";
+import StudentNotices from "./StudentNotices";
+import AdminNotices from "./AdminNotices";
+import { Loader2 } from "lucide-react";
+import { User } from "@/lib/auth";
+import { useEffect, useState } from "react";
+import { createAuthClient } from "better-auth/react";
 
-const NoticesPage = () => {
-  const router = useRouter();
-  const { notices, loading, fetchNotices } = useNoticeStore();
+const { useSession } = createAuthClient();
 
+export default function Page() {
+  const[user,setUser]=useState<User|null>()
+  const { data: session, isPending } = useSession();
   useEffect(() => {
-    fetchNotices();
-  }, [fetchNotices]);
+    if (session?.user && !isPending) {
+      const user = session.user as User;
+      setUser(user)
+    }
+  }, [session, isPending]);
 
-  return (
-    <div className="px-4 py-6 bg-background min-h-screen text-foreground">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold">Notices</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Manage and track all your notices
-          </p>
-        </div>
-        <Button
-          onClick={() => router.push("/notices/new")}
-          className="bg-primary text-primary-foreground hover:opacity-90"
-        >
-          <PlusIcon className="w-4 h-4 mr-2" />
-          New Notice
-        </Button>
+  if (isPending) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
+    );
+  }
 
-      {/* Loading State */}
-      {loading && (
-        <div className="flex justify-center items-center mt-20">
-          <Loader2 className="w-8 h-8 text-primary animate-spin" />
-        </div>
-      )}
+  if (user?.role === "admin") {
+    return <AdminNotices />;
+  }
 
-      {/* Empty State */}
-      {!loading && notices.length === 0 && (
-        <div className="flex justify-center mt-20">
-          <Empty>
-            <EmptyHeader>
-              <EmptyMedia variant="icon">
-                <Bell className="w-6 h-6" />
-              </EmptyMedia>
-              <EmptyTitle>No Notices Found</EmptyTitle>
-              <EmptyDescription>
-                You haven't posted any notices yet. Start by creating your first
-                notice.
-              </EmptyDescription>
-            </EmptyHeader>
-            <EmptyContent>
-              <Button onClick={() => router.push("/notices/new")}>
-                <PlusIcon className="w-4 h-4 mr-2" />
-                Post Your First Notice
-              </Button>
-            </EmptyContent>
-          </Empty>
-        </div>
-      )}
-
-      {/* Notices Table */}
-      {!loading && notices.length > 0 && (
-        <div className="space-y-4">
-          {/* Data Table */}
-          <DataTable
-            columns={columns}
-            data={notices}
-            searchKey="title"
-            searchPlaceholder="Search by notice title..."
-          />
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default NoticesPage;
+  return <StudentNotices />;
+}

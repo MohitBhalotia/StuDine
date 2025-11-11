@@ -4,7 +4,8 @@ import { db } from "@/config/db";
 
 export const getNotices = async () => {
   try {
-    const [rows] = await db.query("SELECT * FROM notices WHERE validUntil > NOW()");
+    const [rows] = await db.query("SELECT * FROM notices WHERE validUntil IS NULL OR validUntil > NOW()");
+
     return {
       success: true,
       message: "Notices fetched successfully",
@@ -18,7 +19,6 @@ export const getNotices = async () => {
 
 export const addNotices = async (notices: Notices) => {
   try {
-    console.log(notices);
     await db.query(
       "INSERT INTO notices (id, title, description, image, postedBy, validUntil) VALUES (?, ?, ?, ?, ?, ?)",
       [
@@ -66,3 +66,6 @@ export const deleteNotices = async (id: string) => {
     throw new Error("Failed to delete notices");
   }
 };
+
+
+

@@ -1,33 +1,35 @@
 "use client";
-import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive } from "@/components/chart-area-interactive";
-// import DataTable from "@/app/(console)/orders/OrderTable";
-import { SectionCards } from "@/components/section-cards";
-import { SiteHeader } from "@/components/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-import { Button } from "@react-email/components";
-import { authClient } from "@/lib/auth-client";
+import StudentDashboard from "./StudentDashboard";
+import AdminDashboard from "./AdminDashboard";
+import { Loader2 } from "lucide-react";
+import { User } from "@/lib/auth";
+import { useEffect, useState } from "react";
+import { createAuthClient } from "better-auth/react";
 
-async function handleLogout() {
-  const { error } = await authClient.revokeSessions();
-  if (error) {
-    console.error("Logout failed:", error);
-  }
-}
+const { useSession } = createAuthClient();
 
 export default function Page() {
-  return (
-    <div className="flex flex-1 flex-col">
-      <div className="@container/main flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          <SectionCards />
-          {/* <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div> */}
-          {/* <DataTable /> */}
-        </div>
+  const[user,setUser]=useState<User|null>()
+  const { data: session, isPending } = useSession();
+  useEffect(() => {
+    if (session?.user && !isPending) {
+      const user = session.user as User;
+      setUser(user)
+    }
+  }, [session, isPending]);
+
+  if (isPending) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (user?.role === "admin") {
+    return <AdminDashboard />;
+  }
+
+  return <StudentDashboard />;
 }

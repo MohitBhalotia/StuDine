@@ -48,14 +48,13 @@ export function NoticeForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { data: session, isPending } = useSession();
-  const [user, setUser] = useState<User | null>(null);
   const { addNoticeToStore, loading } = useNoticeStore();
   const form = useForm<z.infer<typeof issueformSchema>>({
     resolver: zodResolver(issueformSchema),
     defaultValues: {
       userId: "",
-      title: "",
-      description: "",
+      title: "Enter title",
+      description: "Enter description",
       image: undefined,
     },
   });
@@ -63,7 +62,6 @@ export function NoticeForm() {
   useEffect(() => {
     if (session?.user && !isPending) {
       const currentUser = session.user as User;
-      setUser(currentUser);
       form.setValue("userId", currentUser.id);
     }
   }, [session, isPending, form]);
@@ -110,7 +108,6 @@ export function NoticeForm() {
   });
 
   const handleDrop = (files: File[]) => {
-    console.log(files);
     setFiles(files);
     if (files.length > 0) {
       const reader = new FileReader();

@@ -39,7 +39,6 @@ export function LoginForm() {
     },
   });
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
-    console.log(data);
     setError(null);
     setLoading(true);
     const { error } = await authClient.signIn.email({

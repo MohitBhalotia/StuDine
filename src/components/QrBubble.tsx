@@ -21,7 +21,7 @@ const QrDialog = ({
 }) => {
   const router = useRouter();
   const handleScan = (result: IDetectedBarcode[]) => {
-    console.log(result[0].rawValue);
+    console.log(result)
     router.push(result[0].rawValue);
     setOpen(false);
   };

@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { getOrders, updateOrder, deleteOrder } from "@/actions/order";
+import { getOrders, updateOrder, deleteOrder, getOrdersByUserId } from "@/actions/order";
 
 interface OrderStore {
   orders: Order[];
   loading: boolean;
   error: string | null;
   fetchOrders: () => Promise<void>;
+  fetchOrdersByUserId: (userId: string) => Promise<void>;
   updateOrderInStore: (
     updatedOrder: Order,
     id: string
@@ -73,6 +74,19 @@ export const useOrderStore = create<OrderStore>()(
         console.error("Error deleting order:", error);
         return { success: false, message: "Failed to delete order", loading: false };
       }
+    },
+
+    fetchOrdersByUserId: async (userId: string) => {
+      set({ loading: true, error: null });
+      try {
+        const result = await getOrdersByUserId(userId);
+          if (result.success && result.data) {
+            set({ orders: result.data, loading: false });
+          }
+        } catch (error) {
+          console.error("Error fetching orders by user id:", error);
+          set({ error: "Failed to fetch orders by user id", loading: false });
+        }
     },
 
     setLoading: (loading: boolean) => set({ loading }),

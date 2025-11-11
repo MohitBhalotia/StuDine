@@ -18,7 +18,6 @@ export const getIssues = async () => {
 
 export const addIssues = async (issues: Issues) => {
   try {
-    console.log(issues);
     await db.query(
       "INSERT INTO issues (id, userId, title, description, image) VALUES (?, ?, ?, ?, ?)",
       [issues.id, issues.userId, issues.title, issues.description, issues.image]
@@ -57,5 +56,28 @@ export const deleteIssues = async (id: string) => {
   } catch (error) {
     console.error(error);
     throw new Error("Failed to delete issues");
+  }
+};
+
+export const getIssuesById = async (id: string) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM issues WHERE id = ?", [id]);
+    return { success: true, message: "Issue fetched successfully", data: rows as Issues[] };
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get issue");
+  }
+};
+
+
+
+export const getIssuesCountByUserId = async (userId: string) => {
+  try {
+    const [rows]:any = await db.query("SELECT COUNT(*) AS total FROM issues WHERE userId = ?", [userId]);
+    const total = rows[0]?.total ?? 0;
+    return { success: true, message: "Issues count fetched successfully", data: total };
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get issues count");
   }
 };

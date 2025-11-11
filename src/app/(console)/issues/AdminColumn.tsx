@@ -35,7 +35,7 @@ const StatusCell = ({ issue }: { issue: Issues }) => {
 
   const handleStatusChange = async (newStatus: string) => {
     const updatedIssue = { ...issue, status: newStatus as Issues["status"] };
-    const result = await updateIssueInStore(updatedIssue, issue.id);
+    const result = await updateIssueInStore(updatedIssue, issue.id as string);
     if (result.success) toast.success("Issue status updated");
     else toast.error(result.message);
   };
@@ -69,7 +69,7 @@ const ActionsCell = ({ issue }: { issue: Issues }) => {
   const { deleteIssueFromStore } = useIssueStore();
 
   const handleDelete = async () => {
-    const result = await deleteIssueFromStore(issue.id);
+    const result = await deleteIssueFromStore(issue.id as string);
     if (result.success) {
       toast.success(result.message);
     } else {
@@ -89,7 +89,7 @@ const ActionsCell = ({ issue }: { issue: Issues }) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => navigator.clipboard.writeText(issue.id)}
+          onClick={() => navigator.clipboard.writeText(issue.id as string)}
         >
           <CopyIcon className="mr-2 h-4 w-4" />
           Copy issue ID

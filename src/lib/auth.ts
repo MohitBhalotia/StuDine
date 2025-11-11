@@ -4,6 +4,7 @@ import { sendEmail } from "@/utils/sendEmail";
 import bcrypt from "bcrypt";
 export const auth = betterAuth({
   database: db,
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
