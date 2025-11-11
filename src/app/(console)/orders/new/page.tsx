@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { OrderForm } from "../orderForm";
-const NewOrderPage = () => {
+import { Loader2 } from "lucide-react";
+const NewOrderContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("menuId") ?? undefined;
 
@@ -15,5 +16,19 @@ const NewOrderPage = () => {
     </div>
   );
 };
+export default function NewOrderPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+          <div className="animate-spin h-12 w-12 text-blue-500">
+            <Loader2 className="h-12 w-12 text-blue-500" />
+          </div>
+        </div>
+      }
+    >
+      <NewOrderContent />
+    </Suspense>
+  );
+}
 
-export default NewOrderPage;

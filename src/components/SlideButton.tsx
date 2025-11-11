@@ -22,7 +22,7 @@ export function SlideToBuyButton({
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const completionThreshold = useRef(1); // 95% required to complete
+  const completionThreshold = useRef(0.80); // 95% required to complete
 
   const handleComplete = useCallback(() => {
     setIsComplete(true);
@@ -39,6 +39,7 @@ export function SlideToBuyButton({
         setIsComplete(false);
         setSliderPosition(0);
       }
+      handleReset();
     });
   }, [onConfirm]);
 

@@ -47,8 +47,8 @@ export function OrderForm({ id }: { id?: string }) {
   const form = useForm<z.infer<typeof orderformSchema>>({
     resolver: zodResolver(orderformSchema),
     defaultValues: {
-      userId: "",
-      menuId: id ?? "",
+      userId: undefined,
+      menuId: id ?? undefined,
       quantity: 1,
       specialRequest: "",
       status: "Pending" as const,
@@ -183,9 +183,8 @@ export function OrderForm({ id }: { id?: string }) {
                           </SelectItem>
                         ))
                       ) : (
-                        <SelectItem disabled value="">
-                          No menus available
-                        </SelectItem>
+                        
+                        <p className="text-sm text-muted-foreground p-2">No menus available</p>
                       )}
                     </SelectContent>
                   </Select>

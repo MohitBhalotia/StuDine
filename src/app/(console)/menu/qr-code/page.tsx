@@ -1,8 +1,10 @@
 "use client";
 import { QRCode } from "@/components/kibo-ui/qr-code";
+import { Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-const QrCodePage = () => {
+const QrCodeContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   if (!id) {
@@ -20,4 +22,18 @@ const QrCodePage = () => {
   );
 };
 
-export default QrCodePage;
+export default function QrCodePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+          <div className="animate-spin h-12 w-12 text-blue-500">
+            <Loader2 className="h-12 w-12 text-blue-500" />
+          </div>
+        </div>
+      }
+    >
+      <QrCodeContent />
+    </Suspense>
+  );
+}
