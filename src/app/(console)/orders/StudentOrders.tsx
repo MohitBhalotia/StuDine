@@ -25,15 +25,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 
-const OrdersPage = ({ userId }: { userId: string }) => {
+const OrdersPage = ({ userId,isPending }: { userId: string,isPending: boolean }) => {
   const router = useRouter();
   const { orders, loading, fetchOrdersByUserId } = useOrderStore();
   const [statusFilter, setStatusFilter] = useState<string[]>([]);
   const [paymentFilter, setPaymentFilter] = useState<string[]>([]);
 
   useEffect(() => {
-    fetchOrdersByUserId(userId);
-  }, [fetchOrdersByUserId]);
+    if (!isPending && userId) {
+      fetchOrdersByUserId(userId);
+    }
+  }, [userId, isPending]);
 
   // Filter orders based on selected filters
   const filteredOrders = orders.filter((order) => {

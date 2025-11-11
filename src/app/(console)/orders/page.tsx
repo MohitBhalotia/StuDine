@@ -31,6 +31,6 @@ export default function Page() {
     return <AdminOrders />;
   }
 
-  return <StudentOrders userId={user?.id as string} />;
+  return <StudentOrders userId={user?.id as string} isPending={isPending} />;
 }
 
