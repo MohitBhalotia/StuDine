@@ -1,12 +1,11 @@
 "use client";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
-import DataTable from "@/app/(console)/orders/OrderTable";
+// import DataTable from "@/app/(console)/orders/OrderTable";
 import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-import data from "./data.json";
 import { Button } from "@react-email/components";
 import { authClient } from "@/lib/auth-client";
 
@@ -26,7 +25,7 @@ export default function Page() {
           {/* <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div> */}
-          <DataTable />
+          {/* <DataTable /> */}
         </div>
       </div>
     </div>

@@ -19,7 +19,10 @@ const QrDialog = ({
 }: {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const router = useRouter();
   const handleScan = (result: IDetectedBarcode[]) => {
+    console.log(result[0].rawValue);
+    router.push(result[0].rawValue);
     setOpen(false);
   };
 
@@ -28,7 +31,7 @@ const QrDialog = ({
       <DialogHeader>
         <DialogTitle>Scan QR</DialogTitle>
       </DialogHeader>
-      <Scanner onScan={handleScan} />
+      <Scanner onScan={handleScan}/>
       <Button variant="outline" className="mt-3 px-3 py-1 rounded">
         Scan
       </Button>
@@ -43,7 +46,7 @@ const QrBubble = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div className="h-17 w-17 rounded-full p-3 bg-primary fixed right-10 bottom-10 z-40 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-xl">
-          <QrCode className="h-6 w-6 text-white" />
+          <QrCode className="h-6 w-6 text-white " />
         </div>
       </DialogTrigger>
 

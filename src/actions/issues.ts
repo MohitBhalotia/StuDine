@@ -20,20 +20,13 @@ export const addIssues = async (issues: Issues) => {
   try {
     console.log(issues);
     await db.query(
-      "INSERT INTO menus (id, description, type, mealTime, day, price, image) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [
-        issues.id,
-        issues.userId,
-        issues.title,
-        issues.description,
-        issues.image,
-        issues.status,
-      ]
+      "INSERT INTO issues (id, userId, title, description, image) VALUES (?, ?, ?, ?, ?)",
+      [issues.id, issues.userId, issues.title, issues.description, issues.image]
     );
-    return { success: true, message: "Menu added successfully" };
+    return { success: true, message: "Issues added successfully" };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to add menu");
+    throw new Error("Failed to add issues");
   }
 };
 
@@ -53,7 +46,7 @@ export const updateIssues = async (issues: Issues) => {
     return { success: true, message: "Issues updated successfully" };
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to update menu");
+    throw new Error("Failed to update issues");
   }
 };
 

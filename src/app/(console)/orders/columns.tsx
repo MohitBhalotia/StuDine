@@ -200,7 +200,7 @@ export const columns: ColumnDef<Order>[] = [
     header: "Menu ID",
     cell: ({ row }) => (
       <div className="text-center truncate max-w-20">
-        {row.getValue("menuId")}
+        {row.getValue("menuId")??"N/A"}
       </div>
     ),
   },
@@ -209,7 +209,7 @@ export const columns: ColumnDef<Order>[] = [
     header: "User ID",
     cell: ({ row }) => (
       <div className="text-center truncate max-w-20">
-        {row.getValue("userId")}
+        {row.getValue("userId")??"N/A"}
       </div>
     ),
   },

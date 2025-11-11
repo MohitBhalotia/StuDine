@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { menuformSchema } from "@/models/console/form-schema";
+import { menuformSchema } from "@/models/console/menu-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -137,217 +137,221 @@ export function MenuForm({ id }: { id?: string }) {
     );
   }
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
-        {/* ✅ Image Section */}
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Image</FormLabel>
-
-              {/* Dropzone Section */}
-              <div className="flex flex-col gap-2">
-                <Dropzone
-                  accept={{ "image/*": [] }}
-                  src={files}
-                  maxFiles={1}
-                  onDrop={handleDrop}
-                  onError={console.error}
-                >
-                  <DropzoneEmptyState />
-                  <DropzoneContent>
-                    {filePreview && (
-                      <div className="h-[150px] w-full">
-                        <Image
-                          alt="Preview"
-                          className="absolute top-0 left-0 h-full w-full object-cover"
-                          src={filePreview}
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                    )}
-                  </DropzoneContent>
-                </Dropzone>
-
-                {filePreview && (
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <InfoIcon className="h-4 w-4" /> Click on the image to
-                      change it
-                    </p>
-                    <Button
-                      className=""
-                      type="button"
-                      variant="destructive"
-                      onClick={() => {
-                        setFiles([]);
-                        setFilePreview(undefined);
-                      }}
-                    >
-                      <TrashIcon className="h-4 w-4" />
-                      Delete Image
-                    </Button>
-                  </div>
-                )}
-              </div>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* ✅ Description */}
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea {...field} placeholder="Enter meal description" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* ✅ Day, Meal Time, Type */}
-        <div className="flex flex-wrap gap-2">
-          {/* Day */}
+    <div className="p-4 border rounded-2xl mt-4">
+      <Form {...form}>
+        <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
+          {/* ✅ Image Section */}
           <FormField
             control={form.control}
-            name="day"
+            name="image"
             render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Day *</FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a day" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {[
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday",
-                      ].map((day) => (
-                        <SelectItem key={day} value={day}>
-                          {day}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+              <FormItem>
+                <FormLabel>Image</FormLabel>
 
-          {/* Meal Time */}
-          <FormField
-            control={form.control}
-            name="mealTime"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Meal Time *</FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select meal time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {["Breakfast", "Lunch", "Snacks", "Dinner"].map(
-                        (time) => (
-                          <SelectItem key={time} value={time}>
-                            {time}
-                          </SelectItem>
-                        )
+                {/* Dropzone Section */}
+                <div className="flex flex-col gap-2">
+                  <Dropzone
+                    accept={{ "image/*": [] }}
+                    src={files}
+                    maxFiles={1}
+                    onDrop={handleDrop}
+                    onError={console.error}
+                  >
+                    <DropzoneEmptyState />
+                    <DropzoneContent>
+                      {filePreview && (
+                        <div className="h-[150px] w-full">
+                          <Image
+                            alt="Preview"
+                            className="absolute top-0 left-0 h-full w-full object-cover"
+                            src={filePreview}
+                            width={200}
+                            height={200}
+                          />
+                        </div>
                       )}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
+                    </DropzoneContent>
+                  </Dropzone>
+
+                  {filePreview && (
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <InfoIcon className="h-4 w-4" /> Click on the image to
+                        change it
+                      </p>
+                      <Button
+                        className=""
+                        type="button"
+                        variant="destructive"
+                        onClick={() => {
+                          setFiles([]);
+                          setFilePreview(undefined);
+                        }}
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                        Delete Image
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Type */}
+          {/* ✅ Description */}
           <FormField
             control={form.control}
-            name="type"
+            name="description"
             render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Type *</FormLabel>
+              <FormItem>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {["Veg", "Non-veg", "Jain"].map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Textarea {...field} placeholder="Enter meal description" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
 
-        {/* ✅ Price Slider */}
-        <FormField
-          control={form.control}
-          name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                <div className="flex w-full items-center justify-between">
-                  <p>Price *</p>
-                  <span className="text-base font-medium">₹{field.value}</span>
-                </div>
-              </FormLabel>
-              <FormControl>
-                <Slider
-                  value={[field.value]}
-                  onValueChange={(val) => field.onChange(val[0])}
-                  min={0}
-                  max={200}
-                  step={5}
-                />
-              </FormControl>
-              <FormDescription>Set the price of the meal</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          {/* ✅ Day, Meal Time, Type */}
+          <div className="flex flex-wrap gap-2">
+            {/* Day */}
+            <FormField
+              control={form.control}
+              name="day"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Day *</FormLabel>
+                  <FormControl>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a day" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                          "Sunday",
+                        ].map((day) => (
+                          <SelectItem key={day} value={day}>
+                            {day}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        {/* ✅ Submit */}
-        <div className="flex justify-end">
-          <Button type="submit" size="sm" disabled={loading}>
-            {loading || pending ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />{" "}
-                <span>Submitting...</span>
-              </>
-            ) : menu ? (
-              "Update Menu"
-            ) : (
-              "Add Menu"
+            {/* Meal Time */}
+            <FormField
+              control={form.control}
+              name="mealTime"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Meal Time *</FormLabel>
+                  <FormControl>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select meal time" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {["Breakfast", "Lunch", "Snacks", "Dinner"].map(
+                          (time) => (
+                            <SelectItem key={time} value={time}>
+                              {time}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Type */}
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Type *</FormLabel>
+                  <FormControl>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {["Veg", "Non-veg", "Jain"].map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* ✅ Price Slider */}
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <div className="flex w-full items-center justify-between">
+                    <p>Price *</p>
+                    <span className="text-base font-medium">
+                      ₹{field.value}
+                    </span>
+                  </div>
+                </FormLabel>
+                <FormControl>
+                  <Slider
+                    value={[field.value]}
+                    onValueChange={(val) => field.onChange(val[0])}
+                    min={0}
+                    max={200}
+                    step={5}
+                  />
+                </FormControl>
+                <FormDescription>Set the price of the meal</FormDescription>
+                <FormMessage />
+              </FormItem>
             )}
-          </Button>
-        </div>
-      </form>
-    </Form>
+          />
+
+          {/* ✅ Submit */}
+          <div className="flex justify-end">
+            <Button type="submit" size="sm" disabled={loading}>
+              {loading || pending ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />{" "}
+                  <span>Submitting...</span>
+                </>
+              ) : menu ? (
+                "Update Menu"
+              ) : (
+                "Add Menu"
+              )}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 }

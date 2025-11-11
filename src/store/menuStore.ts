@@ -34,40 +34,46 @@ export const useMenuStore = create<MenuStore>()(
     },
 
     addMenuToStore: async (menu: Menu) => {
+      set({ loading: true, error: null });
       const result = await addMenu(menu);
       if (result.success) {
         set((state: MenuStore) => ({
           menus: [...state.menus, menu],
+          loading: false,
         }));
         toast.success(result.message);
       } else {
         toast.error(result.message);
-        set({ error: "Failed to add menu" });
+        set({ error: "Failed to add menu", loading: false });
       }
     },
 
     updateMenuInStore: async (id: string, updatedMenu: Menu) => {
+      set({ loading: true, error: null });
       const result = await updateMenu(updatedMenu);
       if (result.success) {
         set((state: MenuStore) => ({
           menus: state.menus.map((menu) =>
             menu.id === id ? { ...menu, ...updatedMenu } : menu
           ),
+          loading: false,
         }));
       } else {
-        set({ error: "Failed to update menu" });
+        set({ error: "Failed to update menu", loading: false });
       }
     },
 
     deleteMenuFromStore: async (id: string) => {
+      set({ loading: true, error: null });
       try {
         await deleteMenu(id);
         set((state) => ({
-          menus: state.menus.filter((menu: Menu) => menu.id !== id),
+          menus: state.menus.filter((menu: Menu) => menu.id !== id),  loading: false,
         }));
+        toast.success("Item deleted successfully");
       } catch (error) {
         console.error("Error deleting menu:", error);
-        set({ error: "Failed to delete menu" });
+        set({ error: "Failed to delete menu", loading: false });
       }
     },
 

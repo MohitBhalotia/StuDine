@@ -64,16 +64,21 @@ const MenuPage = () => {
   };
 
   return (
-    <div className="px-4 bg-background min-h-screen text-foreground">
+    <div className="px-4 py-6 bg-background min-h-screen text-foreground">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-        <h1 className="text-3xl font-bold">Menu Management</h1>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+        <div>
+          <h1 className="text-3xl font-bold">Menu</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Manage and track all your menu items
+          </p>
+        </div>
         <Button
           onClick={() => router.push("/menu/add")}
           className="bg-primary text-primary-foreground hover:opacity-90"
         >
-          <PlusIcon className="w-4 h-4" />{" "}
-          <p className="font-semibold">New Item</p>
+          <PlusIcon className="w-4 h-4 mr-2" />
+          New Item
         </Button>
       </div>
 

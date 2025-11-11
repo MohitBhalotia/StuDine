@@ -11,9 +11,11 @@ const QrCodePage = () => {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
   return (
-    <div className="flex flex-col items-center justify-center h-[600px]">
-      <h1 className="text-2xl font-bold mb-10">QR Code</h1>
-      <QRCode data={`${baseUrl}/orders/new?menuId=${id}`} />
+    <div className="flex flex-col items-center justify-center  ">
+      <h1 className="text-2xl font-bold my-10">QR Code</h1>
+      <div className="p-4 border dark:bg-white rounded-2xl h-[500px] w-[500px]">
+        <QRCode data={`${baseUrl}/orders/new?menuId=${id}`} />
+      </div>
     </div>
   );
 };

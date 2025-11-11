@@ -53,6 +53,7 @@ export function DataTable<TData, TValue>({
       id: false,
       menuId: false,
       userId: false,
+      postedBy:false
     });
   const [rowSelection, setRowSelection] = React.useState({});
 

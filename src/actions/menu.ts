@@ -4,7 +4,7 @@ import { db } from "@/config/db";
 
 export const getMenus = async () => {
   try {
-    const [rows] = await db.query("SELECT * FROM menus");
+    const [rows] = await db.query("SELECT * FROM menus ORDER BY createdAt ASC");
     return { success: true,message: "Menu fetched successfully", data: rows as Menu[] };
   } catch (error) {
     console.error(error);

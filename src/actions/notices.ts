@@ -2,9 +2,9 @@
 
 import { db } from "@/config/db";
 
-export const getMenu = async () => {
+export const getNotices = async () => {
   try {
-    const [rows] = await db.query("SELECT * FROM notices");
+    const [rows] = await db.query("SELECT * FROM notices WHERE validUntil > NOW()");
     return {
       success: true,
       message: "Notices fetched successfully",
@@ -20,11 +20,11 @@ export const addNotices = async (notices: Notices) => {
   try {
     console.log(notices);
     await db.query(
-      "INSERT INTO notices (id, title, content, image, postedBy, validUntil) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO notices (id, title, description, image, postedBy, validUntil) VALUES (?, ?, ?, ?, ?, ?)",
       [
         notices.id,
         notices.title,
-        notices.content,
+        notices.description,
         notices.image,
         notices.postedBy,
         notices.validUntil,
@@ -40,10 +40,10 @@ export const addNotices = async (notices: Notices) => {
 export const updateNotices = async (notices: Notices) => {
   try {
     await db.query(
-      "UPDATE notices SET  title = ?, content = ?, image = ?, postedBy = ?, validUntil = ? WHERE id = ?",
+      "UPDATE notices SET  title = ?, description = ?, image = ?, postedBy = ?, validUntil = ? WHERE id = ?",
       [
         notices.title,
-        notices.content,
+        notices.description,
         notices.image,
         notices.postedBy,
         notices.validUntil,

@@ -31,23 +31,23 @@ export declare global {
     totalAmount: number;
   }
   interface Notices {
-    id: string;
+    id?: string;
     title: string;
-    content: string;
+    description: string;
     image?: string;
     postedBy: string;
-    postedAt: Date;
-    validUntil: Date;
+    postedAt?: Date;
+    validUntil?: Date;
   }
 
   interface Issues {
-    id: string;
+    id?: string;
     userId: string;
     title: string;
     description: string;
     image?: string;
-    status: "Open" | "Resolved" | "Progress" | "Hold";
-    createdAt: Date;
-    updatedAt: Date;
+    status?: "Open" | "Resolved" | "Progress" | "Hold";
+    createdAt?: Date;
+    updatedAt?: Date;
   }
 }

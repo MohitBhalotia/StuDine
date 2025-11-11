@@ -40,6 +40,7 @@ export const useOrderStore = create<OrderStore>()(
     },
 
     updateOrderInStore: async (updatedOrder: Order, id: string) => {
+      set({ loading: true, error: null });
       try {
         const result = await updateOrder(updatedOrder);
         if (result.success) {
@@ -47,27 +48,30 @@ export const useOrderStore = create<OrderStore>()(
             orders: state.orders.map((order) =>
               order.id === id ? { ...order, ...updatedOrder } : order
             ),
+            loading: false,
           }));
         }
         return result;
       } catch (error) {
         console.error("Error updating order:", error);
-        return { success: false, message: "Failed to update order" };
+        return { success: false, message: "Failed to update order", loading: false };
       }
     },
 
     deleteOrderFromStore: async (id: string) => {
+      set({ loading: true, error: null });
       try {
         const result = await deleteOrder(id);
         if (result.success) {
           set((state: OrderStore) => ({
             orders: state.orders.filter((o) => o.id !== id),
+            loading: false,
           }));
         }
         return result;
       } catch (error) {
         console.error("Error deleting order:", error);
-        return { success: false, message: "Failed to delete order" };
+        return { success: false, message: "Failed to delete order", loading: false };
       }
     },
 
