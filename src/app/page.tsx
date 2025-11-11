@@ -24,10 +24,10 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex items-center justify-center min-h-screen flex-col bg-background">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+        <div className=" flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 p-2 ">
             <Image
               src="/logo.png"
@@ -84,10 +84,19 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        <div className="flex items-center justify-center mt-10  pt-16 flex-col bg-background">
+          <Image
+            src="/iiitn.png"
+            alt="Studine Logo"
+            width={160}
+            height={100}
+            className="rounded-md"
+          />
+        </div>
       </section>
 
       {/* Features Section */}
-      <section className="container px-4 py-20 md:px-6">
+      <section className="container px-4 pt-8 pb-20 md:px-6">
         <div className="mx-auto max-w-5xl">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -275,11 +284,10 @@ export default function Home() {
                 <Image
                   src="/logo.png"
                   alt="Studine Logo"
-                  width={24}
-                  height={24}
+                  width={160}
+                  height={100}
                   className="rounded-md"
                 />
-                <span className="font-bold">Studine</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Smart meal management for modern hostels

@@ -73,9 +73,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter className="flex items-center justify-between">
-        <NavUser/>
-        <ModeToggle />
+      <SidebarFooter className="flex flex-col items-center justify-between">
+        <Image
+          src="/iiitn.png"
+          alt="Studine Logo"
+          width={100}
+          height={100}
+          className="rounded-md mb-12"
+        />
+        <div className="flex  items-center justify-between">
+          <NavUser />
+          <ModeToggle />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
