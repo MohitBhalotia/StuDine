@@ -4,7 +4,7 @@
     `menuId` varchar(36) , 
     `quantity` int not null, 
     `totalAmount` decimal(10,2) not null, 
-    `status` ENUM('Pending', 'Confirmed', 'Delivered', 'Cancelled') default 'Pending' not null, 
+    `status` ENUM('Pending', 'Completed', 'Cancelled') default 'Pending' not null, 
     `paymentStatus` ENUM('Paid', 'Unpaid', 'Refunded') default 'Unpaid' not null, 
     `paymentMethod` ENUM('Cash', 'Card', 'Online') default 'Cash' not null, 
     `specialRequest` text, 

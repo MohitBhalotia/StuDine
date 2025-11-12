@@ -185,7 +185,7 @@ export const getMostOrderedItemByUserId = async (userId: string) => {
   try {
     const [rows]: any = await db.query(
       `
-      SELECT m.*, COUNT(o.menuId) AS total
+      SELECT m.*, SUM(o.totalAmount) AS total
       FROM orders o
       JOIN menus m ON o.menuId = m.id
       WHERE o.userId = ?
