@@ -228,13 +228,14 @@ export const columns: ColumnDef<Order>[] = [
     cell: ({ row }) => {
       const date = row.getValue("orderTime") as Date;
       if (!date) return <div className="text-muted-foreground">N/A</div>;
-      const formatted = new Date(date).toLocaleDateString("en-US", {
+      const formatted = new Date(date.toISOString()).toLocaleDateString("en-IN", {
         month: "short",
         day: "2-digit",
         year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
       });
+
       return <div className="text-sm">{formatted}</div>;
     },
   },
